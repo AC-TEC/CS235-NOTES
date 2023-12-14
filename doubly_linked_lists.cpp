@@ -12,6 +12,10 @@ Doubly linked list:
     vizualize:  Imagine a row of cars where each car has a front and a back. In a doubly linked list, each "car" (node) not only knows what's in front of it but also what's behind it.
     Similar to linked list. Difference is that we are also able to traverse backwards. Also a doubly linked list takes up more memory than a linked list
 
+BIG O NOTATION:
+    insert   = O(1) (constant time)
+    deletion = O(1) (constant time)
+    Search/access/print/traverse = O(n) (linear time)
 */
 
 //*Example
@@ -30,10 +34,10 @@ struct Doubly_Node{
 class doubly_linked_list{
     private:
         Doubly_Node* Head_ptr; //we will set this to null at the constructor 
-
+        Doubly_Node* Tail_ptr;//!add a pointer to tail this is helpful when we want to print/traverse backwards in a doubly linked list(makes it more easier for us)
     public:
         //constrcutor to initialize Head_ptr to nullptr
-        doubly_linked_list() : Head_ptr(nullptr){}
+        doubly_linked_list() : Head_ptr(nullptr), Tail_ptr(nullptr){} 
 
         //function to add items to list
         void add_items(const std::string& add_item){
@@ -53,14 +57,34 @@ class doubly_linked_list{
                 while(current->Next_ptr != nullptr){
                     current = current->Next_ptr; //update the current pointer to point to the next node (head->next_node)
                 }
-                //link the current pointer to the new node that we created
+                
+                //!link the current pointer to the new node that we created
                 current->Next_ptr = new_item_node; //linking the current node to the next node (essentially creating the linked list)
 
-                //set the previous pointer of the new node to the current(in this case head which is what current is pointing to)
+                //!set the previous pointer of the new node to the current(in this case head which is what current is pointing to)
                 new_item_node->Prev_ptr = current; //creating the backwards link from the new Node to the previous node which the current pointer is pointing to right now. (essentially creating the doubly linked list) 
                 //essentially sets previous pointer of new node to the head node(aka what "current" is pointing to)
+
+
+                //!update tail pointer to point to new node we added
+                Tail_ptr = new_item_node; 
+                //so now we can easily have a pointer that points to the end so we can use the end as a starting point when we want to traverse backwards to print data of previous node
             }
         }
+
+        //function to print the doubly linked function fowards and backwards
+
+        void print_foward_doubly_linked_list() const{
+            //temproary node to traverse the list
+            Doubly_Node* current = Head_ptr; //make it equal Head_ptr so we can start at the beginning of the linked list
+
+            //traverse through the doubly linked list and print info
+            while(current != nullptr){ //loop until we get to a node that points to nullptr(so until we reach last node in list)
+                std::cout << current->value << std::endl; //print value of "current" node
+                current = current->Next_ptr; //update current pointer to the previous node
+            }
+        }
+
 
         /*
         example
@@ -97,6 +121,38 @@ class doubly_linked_list{
                     }
         */
 
-       //print essentiall same this do tmr 12/13/23
+
+        void print_backward_doubly_linked_list() const{
+            //temporary node to traverse list 
+            Doubly_Node *current = Tail_ptr; //start at Tail_ptr(start at end/last node of list )
+            
+            //traverse through list but print out the previous node value
+            while(current != nullptr){ //makes sense cause previous node of head node is null since the head is the beginnning
+                std::cout << current->value << std::endl; //print out value from previous node
+                current = current->Prev_ptr; //move to the previous node
+            } 
+        }
 
 };
+
+
+int main(){
+
+    //create a doubly_linked_list object
+    doubly_linked_list list;
+
+    //add items to list
+    list.add_items("Andy");
+    list.add_items("Antony");
+    list.add_items("Lesly");
+    
+    //print items foward in doubly_linked_list
+    std::cout << "PRINTING FOWARD" << std::endl;
+    list.print_foward_doubly_linked_list();
+
+    std::cout << std::endl; //just a space
+
+    //print items backwards in doubly_linked list
+    std::cout << "PRINTING BACKWARDS" << std::endl;
+    list.print_backward_doubly_linked_list();
+}
