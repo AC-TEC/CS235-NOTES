@@ -1,6 +1,8 @@
 //!Doubly linked list
 
 /*
+helpful video: https://www.youtube.com/watch?v=-StYr9wILqo&t=33s  and neetcode video
+
 Node:
     contains
     1. data/value
