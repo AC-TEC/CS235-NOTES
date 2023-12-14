@@ -69,6 +69,78 @@ Linked Lists:
 
 
 
+//! BELOW EXAMPLE
+
+#include <iostream>
+#include <string>
+
+
+struct Node{
+    std::string value;
+    Node* Next_ptr;
+};
+
+
+class linked_list{
+    private:
+        Node* Head_ptr;
+
+    public:
+        //construtor to initialize head to null
+        linked_list() : Head_ptr(nullptr){}
+
+        //function to add items to linked list
+        void add_items(const std::string& item_added){
+            //create a pointer to a new node (value,pointer to next node)
+            Node* newNode = new Node{item_added,nullptr};
+
+            //where we add to linked list
+            //check if list is empty first
+            if(Head_ptr == nullptr){ //if head does not pointer to a node then make it point to new node(essentially makeing the newNode the start of the linked list)
+                Head_ptr = newNode;
+            } else{ //if Head_ptr does already point to a node(meaning list is not empty) we will add on to the linked list(insert a new node)
+                //create a temporary pointer to traverse through linked list
+                Node* current = Head_ptr; //make current head_ptr bc we want to start from beginning of linked list
+                //itertate
+                while(current->Next_ptr != nullptr){ //traverse until we reach a node that points to null (node that points to null means we have reach end of linked list)
+                    current = current->Next_ptr; //update the current pointer to point to the next node in list basically moving us to the next node
+                }
+                //link the current pointer to the new node that we have
+                    current->Next_ptr = newNode; //linking the current node to the next/new node to list creating the linked list
+            }
+        }
+
+        //function to print items(data) in our linked list
+        void print_list() const{
+            //make temporary pointer to help us traverse
+            Node* current = Head_ptr; //to start at beggining
+            //traverse
+            while(current != nullptr){ //since we already made linked list we will traverse only using current 
+            //print out data/value stored in node
+                std::cout << current->value << std::endl;
+            //move on to the next node
+                current = current->Next_ptr;
+            }
+        }
+};
+
+
+int main(){
+    //testing this shit out
+
+    //create a linked_list object
+    linked_list list;
+
+    //add items to linked list
+    list.add_items("Andy");
+    list.add_items("Antony");
+    list.add_items("Lesly");
+
+    //print items from linked list
+    std::cout << "Printing from linked list" << std::endl;
+    list.print_list();
+}
+
 
 
 
