@@ -1,5 +1,9 @@
 //!QUEUES
 /*
+
+YT vid: https://www.youtube.com/watch?v=jaK4pn1jXTo
+
+
 ?Header:
     #include <queue>
 
