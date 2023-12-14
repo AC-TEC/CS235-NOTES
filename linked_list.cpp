@@ -103,7 +103,7 @@ class linked_list{
                 Node* current = Head_ptr; //make current head_ptr bc we want to start from beginning of linked list
                 //itertate
                 while(current->Next_ptr != nullptr){ //traverse until we reach a node that points to null (node that points to null means we have reach end of linked list)
-                    current = current->Next_ptr; //update the current pointer to point to the next node in list basically moving us to the next node
+                    current = current->Next_ptr; //update the current pointer to point to the next node in list basically moving us to the next node (head->next_node )
                 }
                 //link the current pointer to the new node that we have
                     current->Next_ptr = newNode; //linking the current node to the next/new node to list creating the linked list
